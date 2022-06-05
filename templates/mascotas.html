@@ -1,9 +1,13 @@
 {% extends "base.html" %}
 
-{% block familiares %}
+    {% block titulo %}
+    Mascotas
+      {% endblock %}
+
+      {% block familiares %}
 {% if form %}
 
-<h2>Formulario de Grupo Familiar</h2>
+<h2>Formulario de Mascotas</h2>
 
 <form method="POST" action ="">
   {% csrf_token %}
@@ -13,15 +17,14 @@
 <input type="submit", value="Enviar">
 </form>
 
-{% elif new_familiar %}
+{% elif new_mascota %}
 
 <div class="card" style="width: 18rem;">
   <img src="..." class="card-img-top" alt="...">
   <div class="card-body">
-    <h5 class="card-title">Nombre: {{new_familiar.name}}</h5>
-    <p class="card-text">Edad: {{new_familiar.edad}}<br>
-      Nacimiento: {{new_familiar.nacimiento}}<br>
-    DNI: {{new_familiar.dni}}</p>
+    <h5 class="card-title">Nombre: {{new_mascota.name}}</h5>
+    <p class="card-text">Edad: {{new_mascota.edad}}<br>
+      Raza: {{new_mascota.raza}}<br></p>
     <a href="/admin/" class="btn btn-primary">Administrador</a>
   </div>
 </div>
@@ -29,5 +32,3 @@
 {% endif %}
 
 {% endblock %}
-
-      

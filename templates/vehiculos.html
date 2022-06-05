@@ -1,9 +1,14 @@
 {% extends "base.html" %}
 
+{% block titulo %}
+Vehículos
+{% endblock %}
+
 {% block familiares %}
+
 {% if form %}
 
-<h2>Formulario de Grupo Familiar</h2>
+<h2>Formulario de Vehículos</h2>
 
 <form method="POST" action ="">
   {% csrf_token %}
@@ -13,15 +18,15 @@
 <input type="submit", value="Enviar">
 </form>
 
-{% elif new_familiar %}
+{% elif new_vehiculo %}
 
 <div class="card" style="width: 18rem;">
   <img src="..." class="card-img-top" alt="...">
   <div class="card-body">
-    <h5 class="card-title">Nombre: {{new_familiar.name}}</h5>
-    <p class="card-text">Edad: {{new_familiar.edad}}<br>
-      Nacimiento: {{new_familiar.nacimiento}}<br>
-    DNI: {{new_familiar.dni}}</p>
+    <h5 class="card-title">Nombre: {{new_vehiculo.name}}</h5>
+    <p class="card-text">Precio: {{new_vehiculo.precio}}<br>
+      Marca: {{new_vehiculo.marca}}<br>
+    Patente: {{new_vehiculo.patente}}</p>
     <a href="/admin/" class="btn btn-primary">Administrador</a>
   </div>
 </div>
@@ -29,5 +34,3 @@
 {% endif %}
 
 {% endblock %}
-
-      

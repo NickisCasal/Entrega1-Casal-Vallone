@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block titulo %}
+Familiares
+{% endblock %}
+
+{% block familiares %}
+<div class="d-flex" style="margin-top:5rem; margin-left:7rem">
+    {% for fliar in fliares %}
+
+    <div class="card" style="width: 18rem;">
+        <img class="card-img-top" src="https://www.un.org/sites/un2.un.org/files/user.png" alt="Card image cap">
+        <div class="card-body">
+            <h5 class="card-title">Nombre: {{fliar.name}}</h5>
+            <p class="card-text">Edad: {{fliar.edad}}</p>
+            <p class="card-text">F.Nac: {{fliar.nacimiento}}</p>
+            <p class="card-text">DNI: {{fliar.dni}}</p>
+        </div>
+    </div>
+    
+    {% endfor %}
+    {% endblock %}

@@ -1,11 +1,15 @@
-# entregablefinal1
+# Entregable1+Casal+Vallone
 
-Para usar el codigo:
+# Para usar el codigo:
 
 -Abri Visual Studio 
+
 -Nueva Terminal
+
 -cd desktop
--git clone https://github.com/NickisCasal/entregablefinal1.git
+-
+git clone https://github.com/NickisCasal/Entrega1-Casal-Vallone.git
+
 -cd entregablefinal1
 
 -Luego Python manage.py runserver

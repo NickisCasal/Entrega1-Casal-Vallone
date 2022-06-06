@@ -7,8 +7,8 @@
 -Nueva Terminal
 
 -cd desktop
--
-git clone https://github.com/NickisCasal/Entrega1-Casal-Vallone.git
+
+-git clone https://github.com/NickisCasal/Entrega1-Casal-Vallone.git
 
 -cd entregablefinal1
 

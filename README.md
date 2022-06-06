@@ -10,7 +10,7 @@
 
 -git clone https://github.com/NickisCasal/Entrega1-Casal-Vallone.git
 
--cd entregablefinal1
+-cd Entrega1-Casal-Vallone
 
 -Luego Python manage.py runserver
 

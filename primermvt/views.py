@@ -1,5 +1,4 @@
 from django.shortcuts import render
-import primermvt
 from primermvt.forms import Familiares_form, Animales_form, Vehiculos_form
 from primermvt.models import Familiares, Animales, Vehiculos
 
@@ -65,6 +64,15 @@ def show_familiar(request):
     fliares = Familiares.objects.all()
     context = {'fliares':fliares}
     return render(request, 'show_familiares.html', context=context)
+
+def detail_familiar(request, pk):
+    try:
+        fliar = Familiares.objects.get(id=pk)
+        context = {"fliar": fliar}
+        return render(request, "familiar_detalle.html", context=context)
+    except:
+        context = {"error":"El familiar no existe"}
+        return render(request, "show_familiares.html", context=context)
 
 def show_mascota(request):
     print(request.method)

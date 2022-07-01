@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from primermvt.forms import Familiares_form, Animales_form, Vehiculos_form
 from primermvt.models import Familiares, Animales, Vehiculos
+from django.views.generic import ListView
 
 # Create your views here.
 
@@ -60,10 +61,10 @@ def vehiculos(request):
         return render(request, "vehiculos.html", context=context)
 
 def show_familiar(request):
-    print(request.method)
     fliares = Familiares.objects.all()
     context = {'fliares':fliares}
     return render(request, 'show_familiares.html', context=context)
+
 
 def detail_familiar(request, pk):
     try:
@@ -73,6 +74,20 @@ def detail_familiar(request, pk):
     except:
         context = {"error":"El familiar no existe"}
         return render(request, "show_familiares.html", context=context)
+
+def eliminar_familiar(request, pk):
+    try:
+        if request.method == "GET":
+            fliar = Familiares.objects.get(id=pk)
+            context = {"fliar": fliar}
+        else:
+            fliar = Familiares.objects.get(id=pk)
+            fliar.delete()
+            context = {"message": "El familiar se eliminó correctamente"}
+        return render(request, "eliminar_familiar.html", context=context)
+    except:
+        context = {"message": "El Familiar no existe"}
+        return render(request, "eliminar_familiar.html", context=context)
 
 def show_mascota(request):
     print(request.method)

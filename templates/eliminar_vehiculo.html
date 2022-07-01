@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block titulo %}
+Borrado de Vehículos
+{% endblock %}
+
+{% block familiares %}
+
+{% if vehiculo %}
+    <h3 style="color: red">Estás por eliminar el vehículo {{vehiculo.name}}. ¿Estás seguro? </h3>
+
+    <form action="/primermvt/eliminar_vehiculo/{{vehiculo.id}}/" method = "POST">
+    {% csrf_token %}
+    <a href="/primermvt/vehiculos/" class="btn btn-primary">Cancelar</a>
+    <button class="btn btn-danger" type="submit">Eliminar</button>
+    </form>
+{% else %}
+<h3>{{message}}</h3>
+{% endif %}
+
+{% endblock %}

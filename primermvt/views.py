@@ -95,11 +95,57 @@ def show_mascota(request):
     context = {'mascotas':mascotas}
     return render(request, 'show_mascotas.html', context=context)
 
+def detail_mascota(request, pk):
+    try:
+        mascota = Animales.objects.get(id=pk)
+        context = {"mascota": mascota}
+        return render(request, "mascota_detalle.html", context=context)
+    except:
+        context = {"error":"La mascota no existe"}
+        return render(request, "show_mascotas.html", context=context)
+
+def eliminar_mascota(request, pk):
+    try:
+        if request.method == "GET":
+            mascota = Animales.objects.get(id=pk)
+            context = {"mascota": mascota}
+        else:
+            mascota = Animales.objects.get(id=pk)
+            mascota.delete()
+            context = {"message": "La mascota se eliminó correctamente"}
+        return render(request, "eliminar_mascota.html", context=context)
+    except:
+        context = {"message": "El Familiar no existe"}
+        return render(request, "eliminar_mascota.html", context=context)
+
 def show_vehiculo(request):
     print(request.method)
     vehiculos = Vehiculos.objects.all()
     context = {'vehiculos':vehiculos}
     return render(request, 'show_vehiculos.html', context=context)
+
+def detail_vehiculo(request, pk):
+    try:
+        vehiculo = Vehiculos.objects.get(id=pk)
+        context = {"vehiculo": vehiculo}
+        return render(request, "vehiculo_detalle.html", context=context)
+    except:
+        context = {"error":"El vehiculo no existe"}
+        return render(request, "show_vehiculos.html", context=context)
+
+def eliminar_vehiculo(request, pk):
+    try:
+        if request.method == "GET":
+            vehiculo = Vehiculos.objects.get(id=pk)
+            context = {"vehiculo": vehiculo}
+        else:
+            vehiculo = Vehiculos.objects.get(id=pk)
+            vehiculo.delete()
+            context = {"message": "El vehículo se eliminó correctamente"}
+        return render(request, "eliminar_vehiculo.html", context=context)
+    except:
+        context = {"message": "El vehículo no existe"}
+        return render(request, "eliminar_vehículo.html", context=context)
 
 def search_view(request):
     print(request.GET)

@@ -11,7 +11,9 @@ Borrado de Familiar
 
     <form action="/primermvt/eliminar_familiar/{{fliar.id}}/" method = "POST">
     {% csrf_token %}
+    <a href="/primermvt/familiares/" class="btn btn-primary">Cancelar</a>
     <button class="btn btn-danger" type="submit">Eliminar</button>
+
     </form>
 {% else %}
 <h3>{{message}}</h3>

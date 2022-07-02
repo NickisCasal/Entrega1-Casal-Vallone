@@ -1,21 +1,22 @@
 {% extends "base.html" %}
 
 {% block titulo %}
-Mascotas
+Detalle de mascotas
 {% endblock %}
 
 {% block familiares %}
 <div class="d-flex" style="margin-top:5rem; margin-left:7rem">
-    {% for mascota in mascotas %}
-
     <div class="card" style="width: 18rem;">
         <img class="card-img-top" src="https://e7.pngegg.com/pngimages/132/908/png-clipart-pet-sitting-dog-walking-cat-black-cat-mammal-cat-like-mammal.png" alt="Card image cap">
         <div class="card-body">
             <h5 class="card-title">Nombre: {{mascota.name}}</h5>
+            <p class="card-text">Edad: {{mascota.edad}}</p>
             <p class="card-text">Tipo: {{mascota.tipo}}</p>
-            <a href="/primermvt/mascota_detalle/{{mascota.id}}" class="btn btn-primary">Detalles</a>
+            <p class="card-text">Raza: {{mascota.raza}}</p>
+            <a href="/primermvt/mascotas/" class="btn btn-primary">Volver</a>
+            <a href="/primermvt/editar_mascota/{{mascota.id}}/" class="btn btn-primary">Editar</a>
+            <a href="/primermvt/eliminar_mascota/{{mascota.id}}/" class="btn btn-danger">Eliminar</a>
         </div>
     </div>
     
-    {% endfor %}
     {% endblock %}

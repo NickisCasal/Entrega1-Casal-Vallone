@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block titulo %}
+Borrado de Familiar
+{% endblock %}
+
+{% block familiares %}
+
+{% if fliar %}
+    <h3 style="color: red">Estás por eliminar al familiar {{object.name}}. ¿Estás seguro? </h3>
+
+    <form action="/primermvt/eliminar_familiar/{{fliar.id}}/" method = "POST">
+    {% csrf_token %}
+    <a href="/primermvt/familiares/" class="btn btn-primary">Cancelar</a>
+    <button class="btn btn-danger" type="submit">Eliminar</button>
+
+    </form>
+{% else %}
+<h3>{{message}}</h3>
+{% endif %}
+
+{% endblock %}

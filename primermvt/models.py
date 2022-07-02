@@ -18,8 +18,8 @@ class Familiares(models.Model):
 #Desde acá los animales
 
 TIPO_ANIMAL = (
-    ("perro", "Perro"),
-    ("gato", "Gato"),
+    ("Perro", "Perro"),
+    ("Gato", "Gato"),
 )
 
 
@@ -38,14 +38,14 @@ class Animales(models.Model):
 
 
 MARCAS = (
-    ("renault", "Renault"),
-    ("ford", "Ford"),
-    ("peugeot", "Peugeot"),
-    ("volkswagen", "Volkswagen"),
-    ("tesla", "Tesla"),
-    ("fiat", "Fiat"),
-    ("chevrolet", "Chevrolet"),
-    ("toyota", "Toyota"),
+    ("Renault", "Renault"),
+    ("Ford", "Ford"),
+    ("Peugeot", "Peugeot"),
+    ("Volkswagen", "Volkswagen"),
+    ("Tesla", "Tesla"),
+    ("Fiat", "Fiat"),
+    ("Chevrolet", "Chevrolet"),
+    ("Toyota", "Toyota"),
 )
 
 class Vehiculos(models.Model):

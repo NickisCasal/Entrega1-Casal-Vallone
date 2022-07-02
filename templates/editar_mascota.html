@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+    {% block titulo %}
+    Mascotas
+      {% endblock %}
+
+      {% block familiares %}
+{% if form %}
+
+<h2>Mascota a Actualizar</h2>
+
+<form method="POST" action ="">
+  {% csrf_token %}
+<table>
+  {{form.as_table}}
+</table>
+<input type="submit", value="Enviar">
+</form>
+
+{% elif new_mascota %}
+
+<div class="card" style="width: 18rem;">
+  <img src="https://e7.pngegg.com/pngimages/132/908/png-clipart-pet-sitting-dog-walking-cat-black-cat-mammal-cat-like-mammal.png" class="card-img-top" alt="...">
+  <div class="card-body">
+    <h5 class="card-title">Nombre: {{new_mascota.name}}</h5>
+    <p class="card-text">Edad: {{new_mascota.edad}}<br>
+      Raza: {{new_mascota.raza}}<br></p>
+    <a href="/primermvt/mascota/" class="btn btn-primary">Crear Nueva</a>
+  </div>
+</div>
+
+{% endif %}
+
+{% endblock %}

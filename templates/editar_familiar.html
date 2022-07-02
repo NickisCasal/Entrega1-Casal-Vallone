@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block familiares %}
+{% if form %}
+
+<h2>Campos a Actualizar</h2>
+
+<form method="POST" action ="">
+  {% csrf_token %}
+<table>
+  {{form.as_table}}
+</table>
+<input type="submit", value="Enviar">
+</form>
+
+{% elif new_familiar %}
+
+<div class="card" style="width: 18rem;">
+  <img src="https://www.un.org/sites/un2.un.org/files/user.png" class="card-img-top" alt="...">
+  <div class="card-body">
+    <h5 class="card-title">Nombre: {{new_familiar.name}}</h5>
+    <p class="card-text">Edad: {{new_familiar.edad}}<br>
+      Nacimiento: {{new_familiar.nacimiento}}<br>
+    DNI: {{new_familiar.dni}}</p>
+    <a href="/primermvt/grupofliar/" class="btn btn-primary">Crear Nuevo</a>
+  </div>
+</div>
+
+{% endif %}
+
+{% endblock %}
+

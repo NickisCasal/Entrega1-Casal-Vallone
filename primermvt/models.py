@@ -1,5 +1,5 @@
 from django.db import models
-from django.forms import CharField
+from django.forms import CharField, ImageField
 
 
 # Create your models here.
@@ -10,7 +10,6 @@ class Familiares(models.Model):
     nacimiento = models.CharField(max_length=10)
     dni = models.IntegerField(default = True, unique=True)
     active = models.BooleanField(default = True)
-    
     class Meta:
         verbose_name = "Familiar"
         verbose_name_plural = "Familiares"

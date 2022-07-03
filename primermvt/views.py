@@ -1,13 +1,74 @@
+from multiprocessing import AuthenticationError
 from winreg import DeleteValue
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from primermvt.forms import Familiares_form, Animales_form, Vehiculos_form
 from primermvt.models import Familiares, Animales, Vehiculos
 from django.views.generic import CreateView, UpdateView
 from django.urls import reverse
+from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
+from django.contrib.auth import authenticate, login,logout
+from entregablemvt.forms import User_registration_form
+from django.contrib.auth.mixins import LoginRequiredMixin
 # Create your views here.
+
+
+def login_view(request):
+
+    if request.method == "POST":
+        form =AuthenticationForm(request, data = request.POST)
+        if form.is_valid():
+            username = form.cleaned_data["username"]
+            password = form.cleaned_data["password"]
+            user = authenticate(username=username, password=password)
+            if user is not None:
+                login(request, user)
+                context = {"mensaje": f"¡¡Bienvenido {username}!!"}
+                return render(request, "inicio.html", context=context)
+            else:
+                context = {"error": "No existe el usuario"}
+                form = AuthenticationForm()
+                return render(request, "auth/login.html", context=context)
+        else:
+            errors = form.errors
+            context = {"errors":form.errors, "form":form}
+            form = AuthenticationForm()
+            return render(request, "auth/login.html", context=context)
+                
+
+    else:
+        form = AuthenticationForm()
+        context = {"form": form}
+        return render(request, "auth/login.html", context=context)
+
+def logout_view(request):
+    logout(request)
+    context = {"deslogueado":"deslogueado correctamente"}
+    return render(request, "inicio.html", context=context)
 
 def Inicio(request):
     return render(request, "inicio.html")
+
+def register_view(request):
+    if request.method == "POST":
+        form = User_registration_form(request.POST)
+        if form.is_valid():
+            form.save()
+            username=form.cleaned_data["username"]
+            password=form.cleaned_data["password1"]
+            user = authenticate(username=username, password=password)
+            login(request, user)
+            context={"mensaje": f"Usuario creado correctamente, ¡Bienvenido {username}!"}
+            return render(request, "inicio.html", context=context)
+        else:
+            errors = form.errors
+            form = User_registration_form()
+            context= {"errors":errors, "form":form}
+            return render(request, "auth/register.html", context=context)
+    else:
+        form = User_registration_form()
+        context = {"form":form}
+        return render(request, "auth/register.html", context=context)
+
 
 # def grupofliar(request):
 #     if request.method == "GET":
@@ -27,7 +88,7 @@ def Inicio(request):
 #             context = {"new_familiar":new_familiar}
 #         return render(request, "grupofliar.html", context=context)
 
-class crear_familiar(CreateView):
+class crear_familiar(LoginRequiredMixin, CreateView):
     model = Familiares
     template_name = "grupofliar.html"
     fields = "__all__"
@@ -52,7 +113,7 @@ class crear_familiar(CreateView):
 #             context = {"new_mascota":new_mascota}
 #         return render(request, "mascotas.html", context=context)
 
-class crear_mascota(CreateView):
+class crear_mascota(LoginRequiredMixin, CreateView):
     model = Animales
     template_name = "mascotas.html"
     fields = "__all__"
@@ -76,7 +137,7 @@ class crear_mascota(CreateView):
 #             context = {"new_vehiculo":new_vehiculo}
 #         return render(request, "vehiculos.html", context=context)
 
-class crear_vehiculo(CreateView):
+class crear_vehiculo(LoginRequiredMixin, CreateView):
     model = Vehiculos
     template_name = "vehiculos.html"
     fields = "__all__"
@@ -84,9 +145,13 @@ class crear_vehiculo(CreateView):
         return reverse("detail_vehiculo", kwargs={"pk":self.object.pk})
 
 def show_familiar(request):
-    fliares = Familiares.objects.all()
-    context = {'fliares':fliares}
-    return render(request, 'show_familiares.html', context=context)
+    if request.user.is_authenticated:
+        fliares = Familiares.objects.all()
+        context = {'fliares':fliares}
+        return render(request, 'show_familiares.html', context=context)
+
+    else:
+        return redirect("login")
 
 
 def detail_familiar(request, pk):
@@ -112,7 +177,7 @@ def eliminar_familiar(request, pk):
         context = {"message": "El Familiar no existe"}
         return render(request, "eliminar_familiar.html", context=context)
 
-class editar_familiar(UpdateView):
+class editar_familiar(LoginRequiredMixin, UpdateView):
     model = Familiares 
     template_name = "editar_familiar.html"
     fields = ["name", "nacimiento"]
@@ -123,10 +188,12 @@ class editar_familiar(UpdateView):
 
 
 def show_mascota(request):
-    print(request.method)
-    mascotas = Animales.objects.all()
-    context = {'mascotas':mascotas}
-    return render(request, 'show_mascotas.html', context=context)
+    if request.user.is_authenticated:
+        mascotas = Animales.objects.all()
+        context = {'mascotas':mascotas}
+        return render(request, 'show_mascotas.html', context=context)
+    else:
+        return redirect("login")
 
 def detail_mascota(request, pk):
     try:
@@ -151,7 +218,7 @@ def eliminar_mascota(request, pk):
         context = {"message": "El Familiar no existe"}
         return render(request, "eliminar_mascota.html", context=context)
 
-class editar_mascota(UpdateView):
+class editar_mascota(LoginRequiredMixin, UpdateView):
     model = Animales 
     template_name = "editar_mascota.html"
     fields = ["name", "edad"]
@@ -160,10 +227,12 @@ class editar_mascota(UpdateView):
         return reverse("detail_mascota", kwargs={"pk":self.object.pk})
 
 def show_vehiculo(request):
-    print(request.method)
-    vehiculos = Vehiculos.objects.all()
-    context = {'vehiculos':vehiculos}
-    return render(request, 'show_vehiculos.html', context=context)
+    if request.user.is_authenticated:
+        vehiculos = Vehiculos.objects.all()
+        context = {'vehiculos':vehiculos}
+        return render(request, 'show_vehiculos.html', context=context)
+    else:
+        return redirect("login")
 
 def detail_vehiculo(request, pk):
     try:
@@ -188,7 +257,7 @@ def eliminar_vehiculo(request, pk):
         context = {"message": "El vehículo no existe"}
         return render(request, "eliminar_vehículo.html", context=context)
 
-class editar_vehiculo(UpdateView):
+class editar_vehiculo(LoginRequiredMixin, UpdateView):
     model = Vehiculos 
     template_name = "editar_vehiculo.html"
     fields = ["name", "precio"]

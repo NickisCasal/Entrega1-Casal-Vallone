@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block titulo %}
+Login
+{% endblock %}
+{% block familiares %}
+<h2 style="margin-left:30rem">Complete los campos para iniciar sesión</h2>
+<h3>{{error}}</h3>
+<form style="margin-left:30rem"  method="POST" action ="">
+{% csrf_token %}
+<table>
+{{form.as_table}}
+</table>
+<input type="submit", value="Ingresar">
+</form>
+
+{% endblock %}

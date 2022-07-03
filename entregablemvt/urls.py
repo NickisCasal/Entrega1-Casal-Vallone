@@ -15,12 +15,18 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from primermvt.views import Inicio
+from primermvt.views import Inicio, login_view, logout_view, register_view
+
+from django.conf import settings
+from django.conf.urls.static import static
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path("primermvt/", include("primermvt.urls")),
-    path("", Inicio, name = "Inicio")
+    path("", Inicio, name = "Inicio"),
+    path("login/", login_view, name ="login"),
+    path("logout/", logout_view, name ="logout"),
+    path("register/", register_view, name ="register"),
     
-]
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -45,6 +45,9 @@
             
             {% if request.user.is_authenticated %}
             <a class="navbar-brand">{{request.user.username}}</a>
+            <li class="nav-item">
+              <img src="{{request.user.user_profile.image.url}}" style="height: 2rem;">
+          </li>
             <a class="navbar-brand" href="/logout/">Salir</a>
             {% else %}
             <a class="navbar-brand" href="/login/">Entrar</a>

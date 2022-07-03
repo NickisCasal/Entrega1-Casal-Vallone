@@ -7,7 +7,9 @@ Detalle de Familiar
 {% block familiares %}
 <div class="d-flex" style="margin-top:5rem; margin-left:7rem">
     <div class="card" style="width: 18rem;">
-        <img class="card-img-top" src="https://www.un.org/sites/un2.un.org/files/user.png" alt="Card image cap">
+        {% if fliar.image %}
+        <img class="card-img-top" src="{{fliar.image.url}}" alt="Card image cap">
+        {% endif %}
         <div class="card-body">
             <h5 class="card-title">Nombre: {{fliar.name}}</h5>
             <p class="card-text">Edad: {{fliar.edad}}</p>

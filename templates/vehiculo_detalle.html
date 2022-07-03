@@ -7,7 +7,9 @@ Detalle de vehículos
 {% block familiares %}
 <div class="d-flex" style="margin-top:5rem; margin-left:7rem">
     <div class="card" style="width: 18rem;">
-        <img class="card-img-top" src="https://img2.freepng.es/20190507/rsf/kisspng-car-towing-vector-graphics-vehicle-illustration-impact-2-16-dinners-with-love-5cd15e42b5fc12.6207670515572250267454.jpg" alt="Card image cap">
+        {% if vehiculo.image %}
+        <img class="card-img-top" src="{{vehiculo.image.url}}" alt="Card image cap">
+        {% endif %}
         <div class="card-body">
             <h5 class="card-title">Nombre: {{vehiculo.name}}</h5>
             <p class="card-text">Precio: {{vehiculo.precio}}$</p>

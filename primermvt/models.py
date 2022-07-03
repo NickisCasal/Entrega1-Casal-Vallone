@@ -10,6 +10,7 @@ class Familiares(models.Model):
     nacimiento = models.CharField(max_length=10)
     dni = models.IntegerField(default = True, unique=True)
     active = models.BooleanField(default = True)
+    image = models.ImageField(upload_to="familiares", blank=True, null=True)
     class Meta:
         verbose_name = "Familiar"
         verbose_name_plural = "Familiares"
@@ -27,6 +28,7 @@ class Animales(models.Model):
     edad = models.IntegerField()
     tipo = models.CharField(max_length=10, choices=TIPO_ANIMAL)
     raza = models.CharField(max_length=20)
+    image = models.ImageField(upload_to="mascotas", blank=True, null=True)
     
     class Meta:
         verbose_name = "Animal"
@@ -52,6 +54,7 @@ class Vehiculos(models.Model):
     precio = models.FloatField()
     marca = models.CharField(max_length=20, choices=MARCAS)
     patente = models.CharField(max_length=10, unique=True, default="Ej: AE 123 CD ")
+    image = models.ImageField(upload_to="vehiculos", blank=True, null=True)
     class Meta:
         verbose_name = "Vehículo"
         verbose_name_plural = "Vehículos"

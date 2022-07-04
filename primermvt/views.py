@@ -9,6 +9,7 @@ from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from django.contrib.auth import authenticate, login,logout
 from entregablemvt.forms import User_registration_form
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.decorators import login_required
 # Create your views here.
 
 
@@ -47,6 +48,8 @@ def logout_view(request):
 
 def Inicio(request):
     return render(request, "inicio.html")
+def contacto(request):
+    return render(request, "contacto.html")
 
 def register_view(request):
     if request.method == "POST":
@@ -156,9 +159,12 @@ def show_familiar(request):
 
 def detail_familiar(request, pk):
     try:
-        fliar = Familiares.objects.get(id=pk)
-        context = {"fliar": fliar}
-        return render(request, "familiar_detalle.html", context=context)
+        if request.user.is_authenticated:
+            fliar = Familiares.objects.get(id=pk)
+            context = {"fliar": fliar}
+            return render(request, "familiar_detalle.html", context=context)
+        else:
+            return redirect("login")
     except:
         context = {"error":"El familiar no existe"}
         return render(request, "show_familiares.html", context=context)
@@ -197,9 +203,12 @@ def show_mascota(request):
 
 def detail_mascota(request, pk):
     try:
-        mascota = Animales.objects.get(id=pk)
-        context = {"mascota": mascota}
-        return render(request, "mascota_detalle.html", context=context)
+        if request.user.is_authenticated:
+            mascota = Animales.objects.get(id=pk)
+            context = {"mascota": mascota}
+            return render(request, "mascota_detalle.html", context=context)
+        else:
+            return redirect("login")
     except:
         context = {"error":"La mascota no existe"}
         return render(request, "show_mascotas.html", context=context)
@@ -236,9 +245,12 @@ def show_vehiculo(request):
 
 def detail_vehiculo(request, pk):
     try:
-        vehiculo = Vehiculos.objects.get(id=pk)
-        context = {"vehiculo": vehiculo}
-        return render(request, "vehiculo_detalle.html", context=context)
+        if request.user.is_authenticated:
+            vehiculo = Vehiculos.objects.get(id=pk)
+            context = {"vehiculo": vehiculo}
+            return render(request, "vehiculo_detalle.html", context=context)
+        else:
+            return redirect("login")
     except:
         context = {"error":"El vehiculo no existe"}
         return render(request, "show_vehiculos.html", context=context)
@@ -266,7 +278,30 @@ class editar_vehiculo(LoginRequiredMixin, UpdateView):
         return reverse("detail_vehiculo", kwargs={"pk":self.object.pk})
 
 def search_view(request):
-    print(request.GET)
-    fliares = Familiares.objects.filter(name__contains = request.GET['search'])
-    context = {"fliares": fliares}
-    return render(request, "search.html", context=context)
+    if request.method == "GET":
+        fliares = Familiares.objects.filter(name__contains = request.GET['search'])
+        mascotas = Animales.objects.filter(name__contains = request.GET['search'])
+        vehiculos = Vehiculos.objects.filter(name__contains = request.GET['search'])
+        context = {"fliares": fliares, "mascotas": mascotas, "vehiculos": vehiculos}
+        return render(request, "search.html", context=context)
+    else:
+        context = {"message": "No se encontró nada"}
+        return render(request, "inicio.html", context=context)
+
+
+# @login_required
+# def editarperfil(request):
+#     usuario = request.user
+#     if request.method == "POST":
+#         miFormulario = User_registration_form(request.POST)
+#         if miFormulario.is_valid:
+#             informacion = miFormulario.cleaned_data
+#             usuario.email = informacion ["email"]
+#             usuario.password1 = informacion ["password1"]
+#             usuario.password2 = informacion["password2"]
+#             usuario.save()
+#             return render(request, "inicio.html")
+#     else:
+#         miFormulario = User_registration_form(initial={"email": usuario.email})
+#         return render(request, "editarperfil.html", {"miFormulario":miFormulario, "usuario":usuario})
+

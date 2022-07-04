@@ -9,14 +9,33 @@ Buscador
     {% for fliar in fliares %}
 
     <div class="card" style="width: 18rem;">
-        <img class="card-img-top" src="https://www.un.org/sites/un2.un.org/files/user.png" alt="Card image cap">
+        <img class="card-img-top" src="{{fliar.image.url}}" alt="Card image cap">
         <div class="card-body">
             <h5 class="card-title">Nombre: {{fliar.name}}</h5>
             <p class="card-text">Edad: {{fliar.edad}}</p>
-            <p class="card-text">F.Nac: {{fliar.nacimiento}}</p>
-            <p class="card-text">DNI: {{fliar.dni}}</p>
+            <a href="/primermvt/familiar_detalle/{{fliar.id}}" class="btn btn-primary">Detalles</a>
         </div>
     </div>
-    
+
     {% endfor %}
+{% for mascota in mascotas %}
+    <div class="card" style="width: 18rem;">
+        <img class="card-img-top" src="{{mascota.image.url}}" alt="Card image cap">
+        <div class="card-body">
+            <h5 class="card-title">Nombre: {{mascota.name}}</h5>
+            <p class="card-text">Edad: {{mascota.edad}}</p>
+            <a href="/primermvt/mascota_detalle/{{mascota.id}}" class="btn btn-primary">Detalles</a>
+        </div>
+    </div>
+    {% endfor %}
+
+    {% for vehiculo in vehiculos %}
+    <div class="card" style="width: 18rem;">
+        <img class="card-img-top" src="{{vehiculo.image.url}}" alt="Card image cap">
+        <div class="card-body">
+            <h5 class="card-title">Nombre: {{vehiculo.name}}</h5>
+            <p class="card-text">Precio: {{vehiculo.precio}}$</p>
+            <a href="/primermvt/vehiculo_detalle/{{vehiculo.id}}" class="btn btn-primary">Detalles</a>
+    {% endfor %}
+
     {% endblock %}

@@ -2,6 +2,7 @@ from django.urls import path
 from primermvt.views import crear_familiar, crear_mascota, crear_vehiculo, show_familiar, show_mascota, show_vehiculo, search_view, detail_familiar, eliminar_familiar, detail_mascota, eliminar_mascota, detail_vehiculo, eliminar_vehiculo, editar_familiar, editar_mascota,editar_vehiculo
 from django.conf import settings
 from django.conf.urls.static import static
+from users.views import editarperfil
 
 urlpatterns = [
     path("grupofliar/", crear_familiar.as_view(), name = "grupofliar"),
@@ -19,5 +20,7 @@ urlpatterns = [
     path("eliminar_vehiculo/<int:pk>/", eliminar_vehiculo, name = "eliminar_vehiculo"),
     path("editar_familiar/<int:pk>/", editar_familiar.as_view(), name = "editar_familiar"),
     path("editar_mascota/<int:pk>/", editar_mascota.as_view(), name = "editar_mascota"),
-    path("editar_vehiculo/<int:pk>/", editar_vehiculo.as_view(), name = "editar_vehiculo")
+    path("editar_vehiculo/<int:pk>/", editar_vehiculo.as_view(), name = "editar_vehiculo"),
+    path("editar_Perfil/<int:pk>/", editarperfil.as_view(), name = "editarPerfil")
+    
 ]

@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block titulo %}
+        Editar
+    {% endblock %}
+
+
+<h1>Edición de Perfil</h1>
+<h1>De {{usuario}}</h1>
+
+<form action="" method="POST">{% csrf_token %}
+ {% for user in User_profile %}
+    <table>
+        {{user.email}}
+    </table>
+
+{% endfor %}
+
+
+
+
+<input type="submit", value="Enviar">
+</form>

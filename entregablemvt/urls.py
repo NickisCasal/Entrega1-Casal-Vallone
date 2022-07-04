@@ -15,7 +15,8 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from primermvt.views import Inicio, login_view, logout_view, register_view
+from primermvt.views import Inicio, login_view, logout_view, register_view, contacto
+from users.views import editarperfil
 
 from django.conf import settings
 from django.conf.urls.static import static
@@ -28,5 +29,7 @@ urlpatterns = [
     path("login/", login_view, name ="login"),
     path("logout/", logout_view, name ="logout"),
     path("register/", register_view, name ="register"),
+    path("contacto/", contacto, name= "contacto"),
+    path("editar_Perfil/<int:pk>/", editarperfil.as_view(), name = "editarPerfil")
     
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

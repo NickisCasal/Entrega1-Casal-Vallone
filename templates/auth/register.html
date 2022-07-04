@@ -4,9 +4,9 @@
 Registro
 {% endblock %}
 {% block familiares %}
-<h2 style="margin-left:30rem">Complete los campos para registrarse</h2>
+<h2 style="margin-left:40rem">Complete los campos para registrarse</h2>
 <h3>{{errors}}</h3>
-<form style="margin-left:30rem"  method="POST" action ="">
+<form style="margin-left:44rem"  method="POST" action ="">
 {% csrf_token %}
 <table>
 {{form.as_table}}
